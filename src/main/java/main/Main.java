@@ -15,9 +15,7 @@ public class Main {
     public static final String verde = "\u001B[32m";
     public static final String giallo = "\u001B[33m";
     public static final String blu = "\u001B[34m";
-    public static final String viola = "\u001B[35m";
     public static final String azzurro = "\u001B[36m";
-    public static final String bianco = "\u001B[37m";
 
     public static void main(String[] args) {
         Archivio archivio = new Archivio();
@@ -47,7 +45,7 @@ public class Main {
             scanner.nextLine();
 
             if (!memoriaOn && scelta != 1 && scelta != 8) {
-                System.out.println(rosso + "ATTENZIONE! Aggiungi prima qualche elemento all'archivio." + reset);
+                System.out.println(rosso + "ATTENZIONE! Aggiungi prima qualche titolo alla libreria." + reset);
                 continue;
             }
 
@@ -85,7 +83,7 @@ public class Main {
                         System.out.println(rosso + "Stai cercando mica di far esplodere la mia libreria?" + "Non provocarmi" + reset);
                 }
             } catch (Exception e) {
-                System.err.println("Errore: " + e.getMessage());
+                System.err.println("Errore durante l'operazione.");
             }
         }
         scanner.close();
@@ -122,11 +120,11 @@ public class Main {
                 System.out.println(giallo + "Rivista" + reset +  " aggiunta con successo!");
             } else {
                 System.out.println();
-                System.out.println(rosso + "Tipo di elemento non valido." + reset);
+                System.out.println(rosso + "Il titolo che stai cercando di aggiungere alla libreria non è valido." + reset);
             }
         } catch (Exception e) {
 
-            System.err.println("Errore: " + e.getMessage());
+            System.err.println("Errore");
             System.out.println();
         } };
 
@@ -147,10 +145,10 @@ public class Main {
         ElementoCatalogo elemento = archivio.ricercaPerIsbn(isbn);
         if (elemento != null) {
             System.out.println();
-            System.out.println(verde + "Elemento trovato: " + reset + elemento);
+            System.out.println(verde + "Titolo trovato: " + reset + elemento);
         } else {
             System.out.println();
-            System.out.println(rosso + "Elemento non trovato." + reset);
+            System.out.println(rosso + "Titolo non trovato." + reset);
         }
     }
 
@@ -162,10 +160,10 @@ public class Main {
         List<ElementoCatalogo> risultati = archivio.ricercaPerAnno(anno);
         if (!risultati.isEmpty()) {
             System.out.println();
-            System.out.println(verde + "Elementi trovati:" + reset);
+            System.out.println(verde + "Titoli trovati:" + reset);
             risultati.forEach(System.out::println);
         } else {
-            System.out.println(rosso + "Nessun elemento trovato per l'anno specificato." + reset);
+            System.out.println(rosso + "Nessun titolo trovato per l'anno specificato." + reset);
         }
     }
 
@@ -176,22 +174,22 @@ public class Main {
         List<Libri> risultati = archivio.ricercaPerAutore(autore);
         if (!risultati.isEmpty()) {
             System.out.println();
-            System.out.println(verde + "Elementi trovati: " + reset);
+            System.out.println(verde + "Titoli trovati: " + reset);
             risultati.forEach(System.out::println);
         } else {
-            System.out.println(rosso + "Nessun elemento trovato per l'autore specificato." + reset);
+            System.out.println(rosso + "Nessun titolo trovato per l'autore specificato." + reset);
         }
     }
 
     private static void aggiornaElemento(Archivio archivio, Scanner scanner) throws Exception {
         System.out.println();
-        System.out.print("Inserisci l'ISBN dell'elemento da aggiornare: ");
+        System.out.print("Inserisci l'ISBN del titolo da aggiornare: ");
         String isbn = scanner.nextLine();
         System.out.println();
-        System.out.println(giallo + "Inserisci i nuovi dati per l'elemento." + reset);
+        System.out.println(giallo + "Inserisci i nuovi dati per il titolo selezionato." + reset);
         aggiungiElemento(archivio, scanner);
         archivio.rimuoviElemento(isbn);
         System.out.println();
-        System.out.println(verde + "Elemento aggiornato con successo." + reset);
+        System.out.println(verde + "Titolo aggiornato con successo." + reset);
     }
 }
